@@ -1,9 +1,11 @@
 import 'dart:developer';
+import 'package:injectable/injectable.dart';
 
 import 'package:elevate_c7/features/home/domain/usecases/get_categories_usecase.dart';
 import 'package:elevate_c7/features/home/domain/usecases/get_products_usecase.dart';
 
 //Cubit
+@injectable
 class HomeViewModel {
   GetProductsUseCase getProductsUseCase;
   GetCategoriesUseCase getCategoriesUseCase;

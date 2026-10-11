@@ -1,7 +1,9 @@
+import 'package:elevate_c7/config/di/di.dart';
 import 'package:elevate_c7/features/home/presentation/screens/home_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MainApp());
 }
 
