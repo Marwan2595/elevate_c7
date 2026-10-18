@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:elevate_c7/features/home/data/models/products_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:elevate_c7/features/home/data/datasources/remote/home_remote_data_source.dart';
 import 'package:elevate_c7/features/home/domain/entities/category_entity.dart';
@@ -16,9 +17,15 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<List<ProductEntity>> getProducts() {
+  Future<List<ProductEntity>> getProducts() async {
     log("getProducts in HomeRepoImpl called", name: "HomeRepoImpl");
-    homeRemoteDataSource.getProducts();
+    final ProductsResponse result = await homeRemoteDataSource.getProducts();
+    for (final product in result.data ?? []) {
+      log(
+        ">>>>>>>>>Product: ${product.title}, Price: ${product.price}",
+        name: "HomeRepoImpl",
+      );
+    }
 
     return Future.value([ProductEntity(), ProductEntity(), ProductEntity()]);
   }

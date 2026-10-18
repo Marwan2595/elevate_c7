@@ -1,4 +1,6 @@
+import 'package:elevate_c7/features/home/data/models/products_response.dart';
+
 abstract class HomeRemoteDataSource {
-  void getProducts();
+  Future<ProductsResponse> getProducts();
   void getCategories();
 }

@@ -11,13 +11,17 @@ dependencies:
     sdk: flutter
 injectable: ^3.0.0
 get_it: ^9.3.0
+retrofit: ^4.9.0
+json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   injectable_generator:
-  build_runner:  
+  retrofit_generator: ^10.0.1
+  build_runner: ^2.6.0
+  json_serializable: ^6.10.0
 
 flutter:
   uses-material-design: true
