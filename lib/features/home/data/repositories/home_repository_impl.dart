@@ -1,5 +1,6 @@
-import 'dart:developer';
-import 'package:elevate_c7/features/home/data/models/products_response.dart';
+import 'package:elevate_c7/config/base_response/base_response.dart';
+import 'package:elevate_c7/features/home/data/models/responses/categories_response.dart';
+import 'package:elevate_c7/features/home/data/models/responses/products_response.dart';
 import 'package:injectable/injectable.dart';
 import 'package:elevate_c7/features/home/data/datasources/remote/home_remote_data_source.dart';
 import 'package:elevate_c7/features/home/domain/entities/category_entity.dart';
@@ -12,21 +13,31 @@ class HomeRepoImpl implements HomeRepo {
   HomeRemoteDataSource homeRemoteDataSource;
 
   @override
-  Future<List<CategoryEntity>> getCategories() {
+  Future<List<CategoryEntity>> getCategories() async {
+    final CategoryResponse result = await homeRemoteDataSource.getCategories();
+
     return Future.value([CategoryEntity()]);
   }
 
   @override
-  Future<List<ProductEntity>> getProducts() async {
-    log("getProducts in HomeRepoImpl called", name: "HomeRepoImpl");
-    final ProductsResponse result = await homeRemoteDataSource.getProducts();
-    for (final product in result.data ?? []) {
-      log(
-        ">>>>>>>>>Product: ${product.title}, Price: ${product.price}",
-        name: "HomeRepoImpl",
-      );
-    }
+  Future<BaseResponse<List<ProductEntity>>> getProducts() async {
+    final BaseResponse<ProductsResponse> response = await homeRemoteDataSource
+        .getProducts();
 
-    return Future.value([ProductEntity(), ProductEntity(), ProductEntity()]);
+    switch (response) {
+      case SuccessBaseResponse<ProductsResponse>():
+        // convert all models to entities
+        List<ProductEntity> productsEntities =
+            response.data.productsList
+                ?.map((productModel) => productModel.toDomain())
+                .toList() ??
+            [];
+        // return SuccessBaseResponse with the list of entities
+        return SuccessBaseResponse<List<ProductEntity>>(data: productsEntities);
+      case ErrorBaseResponse<ProductsResponse>():
+        return ErrorBaseResponse<List<ProductEntity>>.fromErrorMsg(
+          response.errMessage,
+        );
+    }
   }
 }

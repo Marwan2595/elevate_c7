@@ -1,3 +1,4 @@
+import 'package:elevate_c7/features/home/domain/entities/product_entity.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'brand_model.dart';
 import 'category_model.dart';
@@ -61,6 +62,17 @@ class ProductModel {
     this.updatedAt,
     this.productId,
   });
+
+  ProductEntity toDomain() {
+    return ProductEntity(
+      id: id ?? "",
+      title: title ?? '',
+      description: description ?? '',
+      price: price?.toDouble() ?? 0.0,
+      imageUrl: imageCover ?? '',
+      rating: ratingsAverage,
+    );
+  }
 
   factory ProductModel.fromJson(Map<String, dynamic> json) =>
       _$ProductModelFromJson(json);

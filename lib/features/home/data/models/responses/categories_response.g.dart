@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'products_response.dart';
+part of 'categories_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-ProductsResponse _$ProductsResponseFromJson(Map<String, dynamic> json) =>
-    ProductsResponse(
-      count: (json['results'] as num?)?.toInt(),
+CategoryResponse _$CategoryResponseFromJson(Map<String, dynamic> json) =>
+    CategoryResponse(
+      results: (json['results'] as num?)?.toInt(),
       metadata: json['metadata'] == null
           ? null
           : Metadata.fromJson(json['metadata'] as Map<String, dynamic>),
       data: (json['data'] as List<dynamic>?)
-          ?.map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$ProductsResponseToJson(ProductsResponse instance) =>
+Map<String, dynamic> _$CategoryResponseToJson(CategoryResponse instance) =>
     <String, dynamic>{
-      'results': instance.count,
+      'results': instance.results,
       'metadata': instance.metadata,
       'data': instance.data,
     };
