@@ -30,7 +30,7 @@ class _HomeApiClient implements HomeApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'srfsdrfsdfvsdf',
+            'products',
             queryParameters: queryParameters,
             data: _data,
           )

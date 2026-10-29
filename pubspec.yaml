@@ -9,10 +9,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-injectable: ^3.0.0
-get_it: ^9.3.0
-retrofit: ^4.9.0
-json_annotation: ^4.9.0
+
+  #API    
+  retrofit: ^4.9.0
+  json_annotation: ^4.9.0
+  #DI
+  injectable: ^3.0.0
+  get_it: ^9.3.0
+
+  #State Management
+  flutter_bloc: ^9.1.1
 
 dev_dependencies:
   flutter_test:
