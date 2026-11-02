@@ -19,7 +19,7 @@ class ErrorBaseResponse<T> extends BaseResponse<T> {
 
   ErrorBaseResponse({Object? errorObj})
     : errMessage = errorObj == null
-          ? ApiCostant.genericErrorMsg
+          ? ApiConstant.genericErrorMsg
           : _getErrorMsg(errorObj);
 
   static String _getErrorMsg(Object error) {
@@ -37,13 +37,13 @@ class ErrorBaseResponse<T> extends BaseResponse<T> {
           return _getStatusCodeErrorMsg(statusCode);
 
         default:
-          return ApiCostant.genericErrorMsg;
+          return ApiConstant.genericErrorMsg;
       }
     }
 
     switch (error) {
       default:
-        return ApiCostant.genericErrorMsg;
+        return ApiConstant.genericErrorMsg;
     }
   }
 
@@ -58,7 +58,7 @@ class ErrorBaseResponse<T> extends BaseResponse<T> {
       case 500:
         return "Server Error";
       default:
-        return ApiCostant.genericErrorMsg;
+        return ApiConstant.genericErrorMsg;
     }
   }
 }

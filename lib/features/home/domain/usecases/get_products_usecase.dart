@@ -9,7 +9,7 @@ class GetProductsUseCase {
 
   final HomeRepo homeRepo;
 
-  Future<BaseResponse<List<ProductEntity>>> call() async {
-    return await homeRepo.getProducts();
+  Future<BaseResponse<List<ProductEntity>>> call({String? categoryId}) async {
+    return await homeRepo.getProducts(categoryId: categoryId);
   }
 }

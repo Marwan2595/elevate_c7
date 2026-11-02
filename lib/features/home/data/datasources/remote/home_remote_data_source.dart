@@ -3,6 +3,6 @@ import 'package:elevate_c7/features/home/data/models/responses/categories_respon
 import 'package:elevate_c7/features/home/data/models/responses/products_response.dart';
 
 abstract class HomeRemoteDataSource {
-  Future<BaseResponse<ProductsResponse>> getProducts();
+  Future<BaseResponse<ProductsResponse>> getProducts({String? categoryId});
   Future<CategoryResponse> getCategories();
 }

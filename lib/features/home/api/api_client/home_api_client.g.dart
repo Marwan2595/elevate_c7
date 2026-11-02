@@ -21,9 +21,10 @@ class _HomeApiClient implements HomeApiClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<ProductsResponse> getProducts() async {
+  Future<ProductsResponse> getProducts({String? categoryId}) async {
     final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'category': categoryId};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _options = _setStreamType<ProductsResponse>(

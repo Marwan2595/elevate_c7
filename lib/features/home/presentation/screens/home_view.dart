@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:elevate_c7/config/di/di.dart';
 import 'package:elevate_c7/features/home/presentation/cubit/home_state.dart';
 import 'package:elevate_c7/features/home/presentation/cubit/home_view_model.dart';
@@ -13,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeViewModel>(
-      create: (context) => getIt<HomeViewModel>()..getProducts(),
+      create: (context) => getIt<HomeViewModel>()..getData(),
       child: Scaffold(
         body: SafeArea(
           child: ListView(
@@ -49,63 +47,57 @@ class HomeScreen extends StatelessWidget {
               //   child: Container(),
               // listenWhen: (previous, current) => current is ErrorHomeState,
               // ),
+
+              //Men Fashion
               BlocConsumer<HomeViewModel, HomeState>(
                 builder: (context, state) {
-                  log(">>>>>>>>>>>>>>>>>>>builder Rebuild UI");
-                  switch (state) {
-                    case InitialHomeState():
-                    case LoadingHomeState():
-                      return const Center(child: CircularProgressIndicator());
-
-                    case SuccessHomeState():
-                      return ProductsList(
-                        title: "Home Appliance",
-                        products: state.productsList,
-                      );
-                    case ErrorHomeState():
-                      return Center(child: Text(state.errMsg));
+                  if (state.isLoadingMen) {
+                    return const Center(child: CircularProgressIndicator());
                   }
+
+                  if (state.errMsgMen != null && state.isLoadingMen == false) {
+                    return Center(child: Text(state.errMsgMen!));
+                  }
+
+                  return ProductsList(
+                    title: "Men Fashion",
+                    products: state.productsListMen,
+                  );
                 },
                 listener: (context, state) {
-                  log(">>>>>>>>>>>>>>>>>>>listener ");
-                  if (state is ErrorHomeState) {
+                  if (state.errMsgMen != null && state.isLoadingMen == false) {
                     ScaffoldMessenger.of(
                       context,
-                    ).showSnackBar(SnackBar(content: Text(state.errMsg)));
+                    ).showSnackBar(SnackBar(content: Text(state.errMsgMen!)));
                   }
                 },
-                // buildWhen: (previous, current) => previous is LoadingHomeState,
-                // listenWhen: (previous, current) => current is ErrorHomeState,
               ),
               const SizedBox(height: 50),
-              Text("Ay Haga"),
+              //Women Fashion
               BlocConsumer<HomeViewModel, HomeState>(
                 builder: (context, state) {
-                  log(">>>>>>>>>>>>>>>>>>>builder Rebuild UI");
-                  switch (state) {
-                    case InitialHomeState():
-                    case LoadingHomeState():
-                      return const Center(child: CircularProgressIndicator());
-
-                    case SuccessHomeState():
-                      return ProductsList(
-                        title: "Home Appliance",
-                        products: state.productsList,
-                      );
-                    case ErrorHomeState():
-                      return Center(child: Text(state.errMsg));
+                  if (state.womenState?.isLoading == true) {
+                    return const Center(child: CircularProgressIndicator());
                   }
+
+                  if (state.womenState?.errMsg != null &&
+                      state.womenState?.isLoading == false) {
+                    return Center(child: Text(state.womenState!.errMsg!));
+                  }
+
+                  return ProductsList(
+                    title: "Women Fashion",
+                    products: state.womenState?.data ?? [],
+                  );
                 },
                 listener: (context, state) {
-                  log(">>>>>>>>>>>>>>>>>>>listener ");
-                  if (state is ErrorHomeState) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(SnackBar(content: Text(state.errMsg)));
+                  if (state.womenState?.errMsg != null &&
+                      state.womenState?.isLoading == false) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.womenState!.errMsg!)),
+                    );
                   }
                 },
-                // buildWhen: (previous, current) => previous is LoadingHomeState,
-                // listenWhen: (previous, current) => current is ErrorHomeState,
               ),
             ],
           ),
