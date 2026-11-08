@@ -1,4 +1,5 @@
 import 'package:elevate_c7/config/di/di.dart';
+import 'package:elevate_c7/features/home/presentation/cubit/home_events.dart';
 import 'package:elevate_c7/features/home/presentation/cubit/home_state.dart';
 import 'package:elevate_c7/features/home/presentation/cubit/home_view_model.dart';
 import 'package:elevate_c7/features/home/presentation/widgets/products_list.dart';
@@ -11,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeViewModel>(
-      create: (context) => getIt<HomeViewModel>()..getData(),
+      create: (context) => getIt<HomeViewModel>()..add(GetMenProductsEvent()),
       child: Scaffold(
         body: SafeArea(
           child: ListView(
