@@ -1,33 +1,39 @@
-import 'package:bloc/bloc.dart';
 import 'package:elevate_c7/config/base_response/base_response.dart';
 import 'package:elevate_c7/core/constant/api_costant.dart';
 import 'package:elevate_c7/features/home/domain/entities/product_entity.dart';
 import 'package:elevate_c7/features/home/presentation/cubit/home_events.dart';
 import 'package:elevate_c7/features/home/presentation/cubit/home_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:elevate_c7/features/home/domain/usecases/get_categories_usecase.dart';
 import 'package:elevate_c7/features/home/domain/usecases/get_products_usecase.dart';
 
 //Cubit
 @injectable
-class HomeViewModel extends Bloc<HomeEvents, HomeState> {
+class HomeViewModel extends Cubit<HomeState> {
   GetProductsUseCase _getProductsUseCase;
   GetCategoriesUseCase _getCategoriesUseCase;
   //State. --> object
   //Stream.--> changes of state
   HomeViewModel(this._getProductsUseCase, this._getCategoriesUseCase)
-    : super(HomeState()) {
-    on<GetMenProductsEvent>(_getProductsMen);
+    : super(HomeState());
+
+  void onEvent(HomeEvents event) {
+    switch (event) {
+      case GetMenProductsEvent():
+        _getProductsMen();
+      case GetWomenProductsEvent():
+        _getProductsWomen();
+      case GetAllDataEvent():
+        _getData();
+    }
   }
 
-  // Future<void> _getData() async {
-  //   Future.wait([_getProductsMen(GetMenProductsEvent(), ), _getProductsWomen()]);
-  // }
+  Future<void> _getData() async {
+    Future.wait([_getProductsMen(), _getProductsWomen()]);
+  }
 
-  Future<void> _getProductsMen(
-    HomeEvents event,
-    Emitter<HomeState> emit,
-  ) async {
+  Future<void> _getProductsMen() async {
     emit(state.copyWith(isLoadingMen: true, errMsgMen: null));
     final BaseResponse<List<ProductEntity>> apiResult =
         await _getProductsUseCase(categoryId: ApiConstant.menCategoryId);

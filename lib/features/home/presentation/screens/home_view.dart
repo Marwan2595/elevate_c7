@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeViewModel>(
-      create: (context) => getIt<HomeViewModel>()..add(GetMenProductsEvent()),
+      create: (context) => getIt<HomeViewModel>()..onEvent(GetAllDataEvent()),
       child: Scaffold(
         body: SafeArea(
           child: ListView(
