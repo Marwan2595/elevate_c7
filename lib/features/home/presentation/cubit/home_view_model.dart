@@ -15,6 +15,7 @@ class HomeViewModel extends Cubit<HomeState> {
   GetCategoriesUseCase _getCategoriesUseCase;
   //State. --> object
   //Stream.--> changes of state
+  
   HomeViewModel(this._getProductsUseCase, this._getCategoriesUseCase)
     : super(HomeState());
 
@@ -83,3 +84,6 @@ class HomeViewModel extends Cubit<HomeState> {
     }
   }
 }
+
+
+//pr comments fix

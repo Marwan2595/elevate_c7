@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
     this.onAddTap,
     this.onFavoriteTap,
   });
-
+  //pr comments fix
   static const double width = 160;
   static const double _radius = 15;
 

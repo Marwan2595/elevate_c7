@@ -24,7 +24,7 @@ class HomeState {
           data: [],
         );
   }
-
+  //pr comments fix
   HomeState copyWith({
     bool? isLoadingMen,
     String? errMsgMen,
