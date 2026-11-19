@@ -20,7 +20,9 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<BaseResponse<List<ProductEntity>>> getProducts({String? categoryId}) async {
+  Future<BaseResponse<List<ProductEntity>>> getProducts({
+    String? categoryId,
+  }) async {
     final BaseResponse<ProductsResponse> response = await homeRemoteDataSource
         .getProducts(categoryId: categoryId);
 

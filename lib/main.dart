@@ -1,4 +1,5 @@
 import 'package:elevate_c7/config/di/di.dart';
+import 'package:elevate_c7/core/theme/main_theme.dart';
 import 'package:elevate_c7/features/home/presentation/screens/home_view.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomeScreen());
+    return MaterialApp(theme: appTheme, home: HomeScreen());
   }
 }
